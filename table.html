@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Table Form</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="table.css"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('[data-toggle="tooltip"]').tooltip();
+	var actions = $("table td:last-child").html();
+    
+    
+    $(".btn").click(function(){
+		$(this).attr("disabled", "disabled");
+		var index = $("table tbody tr:last-child").index();
+        var row = '<tr>' +
+            '<td><input type="text" class="field" name="name" id="name"></td>' +
+            '<td><input type="text" class="field" name="department" id="department"></td>' +
+            '<td><input type="text" class="field" name="phone" id="phone" maxlength="10"></td>' +
+            '<td><select class="field" name="gen"> <option>Female</option><option>Male</option></select></td>'+
+			'<td>' + actions + '</td>' +
+        '</tr>';
+    	$("table").append(row);		
+		$("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+	
+	$(document).on("click", ".add", function(){
+		var empty = false;
+		var input = $(this).parents("tr").find('input[type="text"]');
+        input.each(function(){
+			if(!$(this).val()){
+				$(this).addClass("error");
+                empty = true;
+                if(true){
+                $.alert('please fill ')
+            }
+        
+			} else{
+                $(this).removeClass("error");
+            }
+		});
+		$(this).parents("tr").find(".error").first().focus();
+		if(!empty){
+			input.each(function(){
+				$(this).parent("td").html($(this).val());
+			});			
+			$(this).parents("tr").find(".add, .edit").toggle();
+			$(".btn").removeAttr("disabled");
+		}		
+    });
+    
+    
+	$(document).on("click", ".edit", function(){		
+        $(this).parents("tr").find("td:not(:last-child)").each(function(){
+            $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+            
+		});		
+		$(this).parents("tr").find(".add, .edit").toggle();
+		$(".btn").attr("disabled", "disabled");
+    });
+    
+    
+	$(document).on("click", ".delete", function(){
+        $(this).parents("tr").remove();
+		$(".btn").removeAttr("disabled");
+    });
+});
+</script>
+</head>
+<body>
+    <div class="container">
+        <div class="main" >
+            <div class="but">
+             
+            <button type="button" class="btn" style="background-color: rgb(129, 33, 93);color:wheat">Add New Record</button>
+
+            </div>
+            <table border="2px" class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Akshatha</td>
+                        <td>CS</td>
+                        <td>9992229928</td>
+                        
+                        <td>
+							<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sneha</td>
+                        <td>EEE</td>
+                        <td>7898765434</td>
+                       
+                        <td>
+							<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>raju</td>
+                        <td>ME</td>
+                        <td>9087654312</td>
+                       
+                        <td>
+							<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>      
+                </tbody>
+            </table>
+        </div>
+    </div> 
+    <div id="box" >
+            
+           <form action=""  class="form-style-4" id="form" style="display: none;">
+                <label for="field1">
+                        <span> Name</span><input type="text" id="name" name="name" required="true" />
+                        </label>
+                        <label for="field2">
+                        <span>Department</span><input type="email" id="dept" name="dept" required="true" />
+                        </label>
+                        <label for="field3">
+                        <span>Phone Number</span><input type="text" id="pno" name="pno" required="true" />
+                        </label>
+                        <label for="field4">
+                        
+                        <button type="button" id="updateButton" class="c1">Add
+                          </button>
+           </form>
+       </div>
+       
+      </body> 
+      <script>
+      $(document).ready(function(){
+            $(".btnn").click(function(){
+                    $("#box form").show("slow");
+                
+            });
+            $(".c1").click(function(){
+                $("#box form").hide("slow");
+                var name = $("#name").val();
+                var dept = $("#dept").val();
+                var pno = $("#pno").val();
+                
+                var data = "<tr><td>" + name + "</td><td>" + email + "</td><td>" + pno + "</td><td>" + gen + "</td></tr>";
+                $(" tbody").append(data);
+            });
+            
+            
+        });    
+         
+    </script>
+</body>
+</html>                            
